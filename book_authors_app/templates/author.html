@@ -19,7 +19,7 @@
                 <h4 class="my-2 mx-2">ID: {{author.id}}</h4>
                 <hr class="my-2 mx-2">
                 <p class="lead my-2 mx-2">{{author.notes}}</p>
-                <p class="lead my-2 mx-2">Authors:</p>
+                <p class="lead my-2 mx-2">Books:</p>
                 {% for book in author.books.all %}	
                     <li class="fs-5 text-start mx-5"><em>{{book.title}} - {{book.desc}}</em></li>
                 {% endfor %}
@@ -27,10 +27,10 @@
             </div>
             <div class="col-md-5 bg-dark text-center" style="opacity:0.8">
                 <h2 class="fs-1 text-light my-4">Add a Book</h2>
-                <form method="POST" action="/add_author" class="row g-3 mx-3">
+                <form method="POST" action="/add_book" class="row justify-content-center my-5">
                     {% csrf_token %}
-                    <div class="col-md-12">
-                        <label for="authors" class="form-label text-light">Select an Author</label>
+                    <div class="col-auto">
+                        <input class="form-control d-none" type="hide" value="{{author.id}}" aria-label="readonly input example" readonly name="idauthor">
                         <select class="form-select" aria-label="Default select example" name="id" required>
                             <option selected>Open this select menu</option>
                             {% for book in books %}
@@ -42,12 +42,14 @@
                             {% endfor %} 
                         </select>
                     </div>
-                    <input class="btn btn-success btn-lg" type="submit" value="Add">
+                    <div class="col-auto">
+                    <input class="btn btn-success btn-lg" type="submit" value="Add the new Book">
+                </div>
                 </form>
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-2 my-5"><a class="btn btn-warning btn-lg" href="/authors" role="button">Volver</a></div>
+            <div class="col-auto my-5"><a class="btn btn-warning btn-lg" href="/authors" role="button">Volver</a></div>
         </div>
     </body>
 </html>

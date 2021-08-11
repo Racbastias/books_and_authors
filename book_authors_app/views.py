@@ -35,20 +35,6 @@ def author(request, idauthor):
     }
     return render(request, 'author.html', context)
 
-def add_author(request):
-    # función: permite agregar autores a un libro específico, en la página del libro
-    authors = Authors.objects.all()
-    author_id = request.POST['id']
-    author = Authors.objects.get(id=author_id)
-    context = {
-        'book': book,
-        'authors': authors,
-        'author_id': author_id,
-        'author': author,
-    }
-    book.authors.add(author)
-    return redirect("/books/idbook", context)
-    
 def book(request,idbook):
     # página de un libro en específico, add_author permite agregar autores al libro
     book = Books.objects.get(id=idbook)
@@ -77,12 +63,36 @@ def add_authors(request):
     return redirect("/authors", context)
 
 def add_book(request):
-    # función: permite agregar un libro a un autor específico, en su página
-    book_title = request.POST['title']
-    book_desc = request.POST['desc']
-    
-    Books.objects.create(title=book_title, desc=book_desc)
-    return redirect("/books")
+    # función: permite agregar autores a un libro específico, en la página del libro)
+    books = Books.objects.all()
+    book_id = request.POST['id']
+    idauthor = request.POST['idauthor']
+    author = Authors.objects.get(id=idauthor)
+    book = Books.objects.get(id=book_id)
+    context = {
+        'author': authors,
+        'books': books,
+        'book_id': book_id,
+        'author': author,
+    }
+    author.books.add(book)
+    return redirect("/authors", context)
+
+def add_author(request):
+    # función: permite agregar autores a un libro específico, en la página del libro)
+    authors = Authors.objects.all()
+    author_id = request.POST['id']
+    idbook = request.POST['bookid']
+    book = Books.objects.get(id=idbook)
+    author = Authors.objects.get(id=author_id)
+    context = {
+        'book': book,
+        'authors': authors,
+        'author_id': author_id,
+        'author': author,
+    }
+    book.authors.add(author)
+    return redirect("/books", context)
 
 def add_books(request):
     book_title = request.POST['title']
