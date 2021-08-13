@@ -25,9 +25,9 @@ def books(request):
     }
     return render(request, 'books.html', context)
 
-def author(request, idauthor): 
+def author(request, author_id): 
     # página de un autor específico, add_book permite agregar libros a ese autor
-    author = Authors.objects.get(id=idauthor)
+    author = Authors.objects.get(id=int(author_id))
     books = Books.objects.all()
     context = {
         'books': books,
@@ -35,9 +35,9 @@ def author(request, idauthor):
     }
     return render(request, 'author.html', context)
 
-def book(request,idbook):
+def book(request,book_id):
     # página de un libro en específico, add_author permite agregar autores al libro
-    book = Books.objects.get(id=idbook)
+    book = Books.objects.get(id=int(book_id))
     authors = Authors.objects.all()
     context = {
         'book':book,
@@ -76,7 +76,8 @@ def add_book(request):
         'author': author,
     }
     author.books.add(book)
-    return redirect("/authors", context)
+    camefrom = request.META.get('HTTP_REFERER')
+    return redirect(camefrom)
 
 def add_author(request):
     # función: permite agregar autores a un libro específico, en la página del libro)
@@ -92,7 +93,8 @@ def add_author(request):
         'author': author,
     }
     book.authors.add(author)
-    return redirect("/books", context)
+    camefrom = request.META.get('HTTP_REFERER')
+    return redirect(camefrom)
 
 def add_books(request):
     book_title = request.POST['title']
@@ -107,4 +109,13 @@ def del_books(request):
     del_book = Books.objects.get(id=book_id)
     del_book.delete()
     return redirect("/books")
+
+def delete(request, author_id, book_id):
+    author = Authors.objects.get(id=int(author_id))
+    book = Books.objects.get(id=int(book_id))
+    
+    author.books.remove(book)
+    
+    camefrom = request.META.get('HTTP_REFERER')
+    return redirect(camefrom)
 

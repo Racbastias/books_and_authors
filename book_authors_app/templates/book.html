@@ -11,7 +11,7 @@
                 <p class="lead my-2 mx-2">{{book.desc}}</p>
                 <p class="lead my-2 mx-2">Authors:</p>
                 {% for author in book.authors.all %}	
-                    <li class="fs-5 text-start mx-5"><em>{{author.first_name}} {{author.last_name}}</em></li>
+                    <li class="fs-5 text-start mx-5"><em>{{author.first_name}} {{author.last_name}} <a href="/delete/{{author.id}}/{{book.id}}" class="btn btn-danger">x</a></em></li>
                 {% endfor %}
                 <br>	
             </div>
