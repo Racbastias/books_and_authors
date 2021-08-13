@@ -25,30 +25,33 @@
             </div>
             <div class="col-7 my-3 mx-5" style="opacity:0.9">
                 <h2 class="text-light fs-1">Authors in the Store</h2>
-                <table class="table table-light table-hover my-5">
-                    <thead>
-                        <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Books</th>
-                        <th scope="col">Notes</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for author in authors %}
-                        <tr>
-                        <td>{{author.id}}</td>
-                        <td><a href="/author/{{author.id}}">{{author.first_name}} {{author.last_name}}</a></td>
-                        <td>{% for book in author.books.all %} "{{book.title}}" {% endfor %}</td>
-                        <td>{{author.notes}}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-2">
-                    <a class="btn btn-warning btn-lg" href="/">Volver</a>
+                <div data-bs-spy="scroll" style="opacity:0.8; height:30rem; overflow-y:scroll">
+                    <table class="table table-light table-hover my-5">
+                        <thead>
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Books</th>
+                            <th scope="col">Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for author in authors %}
+                            <tr>
+                            <td>{{author.id}}</td>
+                            <td><a href="/author/{{author.id}}">{{author.first_name}} {{author.last_name}}</a></td>
+                            <td>{% for book in author.books.all %} "{{book.title}}" {% endfor %}</td>
+                            <td>{{author.notes}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <a class="btn btn-warning btn-lg" href="/">Volver</a>
+            </div>
+        </div>
 {% endblock %}

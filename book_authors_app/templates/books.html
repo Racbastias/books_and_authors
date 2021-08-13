@@ -4,11 +4,10 @@
 {% block bg %}https://wallpaperaccess.com/full/2964938.jpg{% endblock %}
 {% block content %}
         <div class="row text-center justify-content-center">
-            {% load static %}
             <div class="col-3 my-3 mx-5" style="opacity:0.9">
                 <form method="POST" action="/add_books" class="row g-3 mx-3">
                     {% csrf_token %}
-                    <h2 class="fs-1 text-light">Add a Book</h2>
+                    <h2 class="text-light">Add a Book</h2>
                     <div class="col-md-6">
                         <label for="title" class="form-label text-light">Title</label>
                         <input type="text" class="form-control" value="" name="title" required>
@@ -21,7 +20,7 @@
                 </form>
                 <form method="POST" action="/del_books" class="row g-3 mx-3 my-5">
                     {% csrf_token %}
-                    <h2 class="fs-1 text-light">Delete a Book</h2>
+                    <h2 class="text-light">Delete a Book</h2>
                     <div class="col-md-12">
                         <label for="books" class="form-label text-light">Select Book</label>
                         <select class="form-select" aria-label="Default select example" name="book_id"required>
@@ -36,31 +35,34 @@
             </div>
 
             <div class="col-7 my-3 mx-5" style="opacity:0.8">
-                <h2 class="text-light fs-1">Books in Library</h2>
-                <table class="table table-light table-hover my-5">
-                    <thead>
-                        <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Author</th>
-                        <th scope="col">Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for book in books %}
-                        <tr>
-                        <td>{{book.id}}</td>
-                        <td><a href="/books/{{book.id}}">{{book.title}}</a></td>
-                        <td>{% for author in book.authors.all %}"{{author.first_name}} {{author.last_name}}" {% endfor %}</td>
-                        <td>{{book.desc}}
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-2">
-                    <a class="btn btn-warning btn-lg" href="/">Volver</a>
+                <h2 class="text-light">Books in Library</h2>
+                <div data-bs-spy="scroll" style="opacity:0.8; height:30rem; overflow-y:scroll">
+                    <table class="table table-light table-hover my-5">
+                        <thead>
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Author</th>
+                            <th scope="col">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for book in books %}
+                            <tr>
+                            <td>{{book.id}}</td>
+                            <td><a href="/books/{{book.id}}">{{book.title}}</a></td>
+                            <td>{% for author in book.authors.all %}"{{author.first_name}} {{author.last_name}}" {% endfor %}</td>
+                            <td>{{book.desc}}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <a class="btn btn-warning btn-lg" href="/">Volver</a>
+            </div>
+        </div>
 {% endblock %}
